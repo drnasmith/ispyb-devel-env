@@ -12,7 +12,7 @@
   - name: Setup ISPyB users
     mysql_user:
       name: "{{ item }}"
-      password: "{{ ispyb_password }}"
+      password: "{{ ispyb_db_password }}"
       state: present
       host: localhost
     with_items:
@@ -23,7 +23,7 @@
   - name: Setup ISPyB admin users
     mysql_user:
       name: "{{ item }}"
-      password: "{{ ispyb_password }}"
+      password: "{{ ispyb_db_password }}"
       state: present
       host: '%'
     with_items:

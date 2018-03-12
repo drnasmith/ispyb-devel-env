@@ -1,1 +1,20 @@
-Vagrant Development Environment for ISPyB Web Services
+# Vagrant Development Environment for ISPyB Web Services
+
+This VM is only designed as a standalone setup.
+
+Note: - this currently uses the openjdk - might need to change this for oracle one...
+
+## Role order
+The database role relies on importing sql files from the ISPyB github repo.
+
+Therefore the webserver role should be configured (listed) first.
+
+## Post provision steps
+Once deployed you will need to login to the VM (vagrant ssh) and build the software. 
+
+If all goes well the depdendencies will be created for the vagrant user. If not go to /opt/ispyb/dependencies and run 'mvn initialize'.
+
+To build go to /opt/ispyb and run 'mvn package'. This builds the web services, database layer and the ui all bundled into an ear.
+
+## Deploy to Wildfly
+TODO: Document correct Auto-deploy steps here...

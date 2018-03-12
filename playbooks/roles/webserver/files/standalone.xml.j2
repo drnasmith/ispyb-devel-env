@@ -154,7 +154,7 @@
         <subsystem xmlns="urn:jboss:domain:datasources:2.0">
             <datasources>
                 <datasource jndi-name="java:jboss/ispybDS" pool-name="ispybDS" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:mysql://{{ispyb.db.addr}}:{{ispyb.db.port}}/pydb</connection-url>
+                    <connection-url>jdbc:mysql://{{ispyb_db_addr}}:{{ispyb_db_port}}/pydb</connection-url>
                     <driver>mysql-connector-java-5.1.21.jar</driver>
                     <security>
                         <user-name>UUUUUUU</user-name>
@@ -162,7 +162,7 @@
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/ispyb_db_direct" pool-name="ispyb_db_direct" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:mysql://{{ispyb.db.host}}:{{ispyb.db.port}}/pydb</connection-url>
+                    <connection-url>jdbc:mysql://{{ispyb_db_host}}:{{ispyb_db_port}}/pydb</connection-url>
                     <driver>mysql-connector-java-5.1.21.jar</driver>
                     <security>
                         <user-name>UUUUUUU</user-name>
