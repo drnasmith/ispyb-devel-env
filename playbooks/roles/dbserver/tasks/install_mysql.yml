@@ -1,0 +1,22 @@
+# Provision file for the MariaDB Server package
+# Changed the yum repo because it is in CA and takes agreements
+# Original repo is: baseurl: http://yum.mariadb.org/10.2/centos7-amd64
+  - name: Add MariaDB repository
+    yum_repository:
+      name: mariadb
+      description: MariaDB
+      baseurl: http://mirrors.coreix.net/mariadb/mariadb-10.2.13/yum/centos7-amd64/
+      gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+      gpgcheck: yes
+
+  - name: Install MySQL Python for remote configuration
+    yum: name=MySQL-python state=present
+
+  - name: Install MariaDB Server
+    yum: name=MariaDB-server state=present
+
+  - name: Install MariaDB Client
+    yum: name=MariaDB-client state=present
+
+  - name: Start the MariaDB service
+    service: name=mariadb state=started enabled=yes

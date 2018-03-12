@@ -1,0 +1,40 @@
+- name: Install maven Package
+  package: name=maven state=latest
+
+- name: Install git Package
+  package: name=git state=latest
+
+# Unzip is required for unarchiving directly from a http URL (e.g. glassfish)
+- name: Install unzip Package
+  package: name=unzip state=latest
+
+- name: Download Wildfly 10
+  get_url:
+      url: "{{wildfly_url}}"
+      dest: /opt/{{wildfly_package}}
+
+- name: Install Wildfly from archive
+  unarchive:
+      dest: /opt
+      src: /opt/{{wildfly_package}}
+      owner: vagrant
+      group: vagrant
+      copy: no
+
+- name: Install OpenJDK Package
+  package: name=java-1.8.0-openjdk-devel state=latest
+
+#
+# Download and unpack Java 8
+#
+# - name: Download Java archive
+#   get_url:
+#     url: "{{java_url}}"
+#     headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
+#     dest: /home/vagrant/
+#
+# - name: Install Java from local archive
+#   unarchive:
+#       src: /home/vagrant/{{java_package}}
+#       dest: /opt
+#       remote_src: yes

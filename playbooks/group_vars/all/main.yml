@@ -1,0 +1,6 @@
+ispyb_home: /opt/ispyb
+ispyb.db.addr: localhost
+ispyb.db.port: 3306
+
+ispyb_db_user: pxadmin
+ispyb_db_password: integration

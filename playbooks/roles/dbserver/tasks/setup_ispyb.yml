@@ -1,0 +1,68 @@
+# Provision root permissions for the MariaDB Server
+  - name: Create ISPyB database tables
+    mysql_db:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      -  ispyb_config
+      -  ispyb_db
+      -  pydb
+      -  pyconfig
+
+  - name: Setup ISPyB users
+    mysql_user:
+      name: "{{ item }}"
+      password: "{{ ispyb_password }}"
+      state: present
+      host: localhost
+    with_items:
+      - ispyb_config
+      - ispyb_db
+      - pxuser
+
+  - name: Setup ISPyB admin users
+    mysql_user:
+      name: "{{ item }}"
+      password: "{{ ispyb_password }}"
+      state: present
+      host: '%'
+    with_items:
+      - "{{ispyb_db_user}}"
+
+  - name: Reload Privilege Tables
+    command: 'mysql -ne "{{ item }}"'
+    with_items:
+      - FLUSH PRIVILEGES
+    changed_when: False
+
+#
+# Import database schema
+#
+#
+  - name: Import ispyb schema
+    mysql_db:
+      state: import
+      name: pydb
+      target: "{{ item }}"
+    with_items:
+      - "{{ispyb_home}}/ispyb-ejb/db/pyconfig.sql"
+      - "{{ispyb_home}}/ispyb-ejb/db/pydb.sql"
+      - "{{ispyb_home}}/ispyb-ejb/db/pyconfig.sql"
+    ignore_errors: True
+
+# As we are running from the trunk - run the ahead scripts as well
+  - name: Find remote sql update files copied
+    find:
+      paths: "{{ispyb_home}}/ispyb-ejb/db/scripts/ahead"
+      patterns: "*.sql"
+      recurse: "yes"
+    register: sql_files
+
+  - name: Import ispyb database updates
+    mysql_db:
+      state: import
+      name: pydb
+      target: "{{ item.path }}"
+    with_items:
+      - "{{ sql_files.files }}"
+    ignore_errors: True
