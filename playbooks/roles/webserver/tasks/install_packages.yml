@@ -4,7 +4,7 @@
 - name: Install git Package
   package: name=git state=latest
 
-# Unzip is required for unarchiving directly from a http URL (e.g. glassfish)
+# Unzip is required for unarchiving directly from a http URL (e.g. wildfly)
 - name: Install unzip Package
   package: name=unzip state=latest
 
@@ -15,11 +15,18 @@
 
 - name: Install Wildfly from archive
   unarchive:
-      dest: /opt
       src: /opt/{{wildfly_package}}
+      dest: /opt
       owner: vagrant
       group: vagrant
       copy: no
+
+- name: Install Wildfly configuration
+  template:
+    src: files/standalone.xml.j2
+    dest: "{{ wildfly_home }}/standalone/configuration/standalone.xml"
+    owner: vagrant
+    group: vagrant
 
 - name: Install OpenJDK Package
   package: name=java-1.8.0-openjdk-devel state=latest
