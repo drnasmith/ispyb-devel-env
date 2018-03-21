@@ -30,3 +30,17 @@
     shell: |
         cd {{ ispyb_home }}/dependencies
         mvn initialize
+
+  - name: Install Wildfly configuration
+    template:
+      src: files/standalone.xml.j2
+      dest: "{{ wildfly_home }}/standalone/configuration/standalone.xml"
+      owner: vagrant
+      group: vagrant
+
+  - name: Install ispyb configuration
+    template:
+      src: files/settings.xml.j2
+      dest: "{{ ispyb_home }}/configuration/settings.xml"
+      owner: vagrant
+      group: vagrant

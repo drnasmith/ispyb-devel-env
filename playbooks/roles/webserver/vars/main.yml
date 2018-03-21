@@ -4,3 +4,4 @@
 
 wildfly_package: wildfly-10.1.0.Final.tar.gz
 wildfly_url: "http://download.jboss.org/wildfly/10.1.0.Final/{{wildfly_package}}"
+wildfly_home: /opt/wildfly-10.1.0.Final

@@ -1,5 +1,5 @@
 ispyb_home: /opt/ispyb
-ispyb_db_addr: localhost
+ispyb_db_host: localhost
 ispyb_db_port: 3306
 
 ispyb_db_user: pxadmin
