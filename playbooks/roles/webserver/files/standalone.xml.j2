@@ -471,7 +471,10 @@
             <security-domains>
                 <security-domain name="ispyb" cache-type="default">
                     <authentication>
-                        <login-module code="ispyb.server.security.LdapLoginModule" flag="required">
+                      <login-module code="org.jboss.security.auth.spi.UsersRolesLoginModule" flag="required">
+                        <module-option name="usersProperties" value="file://${jboss.server.config.dir}/props/users.properties"/>
+                        <module-option name="rolesProperties" value="file://${jboss.server.config.dir}/props/roles.properties"/>
+                        <!-- <login-module code="ispyb.server.security.LdapLoginModule" flag="required">
                             <module-option name="java.naming.factory.initial" value="com.sun.jndi.ldap.LdapCtxFactory"/>
                             <module-option name="java.naming.provider.url" value="ldap://ldap.esrf.fr:389/"/>
                             <module-option name="java.naming.security.authentication" value="simple"/>
@@ -481,7 +484,7 @@
                             <module-option name="groupUniqueMember" value="uniqueMember"/>
                             <module-option name="groupAttributeID" value="cn"/>
                             <module-option name="groupCtxDN" value="ou=Pxwebgroups,dc=esrf,dc=fr"/>
-                        </login-module>
+                        </login-module> -->
                     </authentication>
                 </security-domain>
                 <security-domain name="bcr" cache-type="default">
