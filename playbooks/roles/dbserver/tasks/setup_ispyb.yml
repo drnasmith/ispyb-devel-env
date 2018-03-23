@@ -15,6 +15,7 @@
       password: "{{ ispyb_db_password }}"
       state: present
       host: localhost
+      priv: '*.*:ALL'
     with_items:
       - ispyb_config
       - ispyb_db
@@ -26,8 +27,11 @@
       password: "{{ ispyb_db_password }}"
       state: present
       host: '%'
+      priv: '*.*:ALL'
     with_items:
       - "{{ispyb_db_user}}"
+
+
 
   - name: Reload Privilege Tables
     command: 'mysql -ne "{{ item }}"'
@@ -48,7 +52,9 @@
       - "{{ispyb_home}}/ispyb-ejb/db/pyconfig.sql"
       - "{{ispyb_home}}/ispyb-ejb/db/pydb.sql"
       - "{{ispyb_home}}/ispyb-ejb/db/pyconfig.sql"
-    ignore_errors: True
+    ignore_errors: False
+    tags:
+      - dbsetup
 
 # As we are running from the trunk - run the ahead scripts as well
   - name: Find remote sql update files copied
@@ -57,6 +63,8 @@
       patterns: "*.sql"
       recurse: "yes"
     register: sql_files
+    tags:
+      - dbsetup
 
   - name: Import ispyb database updates
     mysql_db:
@@ -66,3 +74,5 @@
     with_items:
       - "{{ sql_files.files }}"
     ignore_errors: True
+    tags:
+      - dbsetup

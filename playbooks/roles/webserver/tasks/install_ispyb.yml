@@ -44,3 +44,25 @@
       dest: "{{ ispyb_home }}/configuration/settings.xml"
       owner: vagrant
       group: vagrant
+
+  - name: Ensure wildfly configuration directory exists
+    file:
+      path: "{{ wildfly_home }}/standalone/configuration/props/"
+      state: directory
+      mode: 0755
+
+  - name: Install wildfly authentication files
+    file:
+      src: files/users.properties
+      dest: "{{ wildfly_home }}/standalone/configuration/props/"
+      owner: vagrant
+      group: vagrant
+    ignore_errors: true
+
+  - name: Install wildfly authentication files
+    file:
+      src: files/roles.properties
+      dest: "{{ wildfly_home }}/standalone/configuration/props/"
+      owner: vagrant
+      group: vagrant
+    ignore_errors: true

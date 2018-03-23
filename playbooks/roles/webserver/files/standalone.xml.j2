@@ -177,24 +177,24 @@
                     <connection-url>jdbc:mysql://{{ispyb_db_host}}:{{ispyb_db_port}}/pyconfig</connection-url>
                     <driver>mysql-connector-java-5.1.21.jar</driver>
                     <security>
-                        <user-name>****</user-name>
-                        <password>****</password>
+                        <user-name>{{ispyb_db_user}}</user-name>
+                        <password>{{ispyb_db_password}}</password>
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/ispybDS" pool-name="ispybDS" enabled="true" use-java-context="true">
                     <connection-url>jdbc:mysql://{{ispyb_db_host}}:{{ispyb_db_port}}/pydb</connection-url>
                     <driver>mysql-connector-java-5.1.21.jar</driver>
                     <security>
-                        <user-name>****</user-name>
-                        <password>****</password>
+                        <user-name>{{ispyb_db_user}}</user-name>
+                        <password>{{ispyb_db_password}}</password>
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/ispyb_db_direct" pool-name="ispyb_db_direct" enabled="true" use-java-context="true">
                     <connection-url>jdbc:mysql://{{ispyb_db_host}}:{{ispyb_db_port}}/pydb</connection-url>
                     <driver>mysql-connector-java-5.1.21.jar</driver>
                     <security>
-                        <user-name>****</user-name>
-                        <password>****</password>
+                        <user-name>{{ispyb_db_user}}</user-name>
+                        <password>{{ispyb_db_password}}</password>
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
@@ -485,6 +485,7 @@
                             <module-option name="groupAttributeID" value="cn"/>
                             <module-option name="groupCtxDN" value="ou=Pxwebgroups,dc=esrf,dc=fr"/>
                         </login-module> -->
+                      </login-module>
                     </authentication>
                 </security-domain>
                 <security-domain name="bcr" cache-type="default">
