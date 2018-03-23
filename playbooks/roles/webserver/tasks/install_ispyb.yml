@@ -11,19 +11,26 @@
         group: vagrant
         recurse: yes
 
+  - name: Ensure wildfly meven local repo directory exists
+    file:
+      path: "{{ maven_local_repo }}"
+      state: directory
+      owner: vagrant
+      group: vagrant
+
+  - name: Install maven settings for ispyb build
+    template:
+      src: files/settings.xml.j2
+      dest: "{{ maven_local_repo }}/settings.xml"
+      owner: vagrant
+      group: vagrant
+
 # Latest version includes a method to initialize dependencies from maven
   - name: Install ISPyB local dependencies
     become_user: vagrant
     shell: |
         cd {{ ispyb_home }}/dependencies
         mvn initialize
-
-  - name: Install ispyb configuration
-    template:
-      src: files/settings.xml.j2
-      dest: "{{ ispyb_home }}/configuration/settings.xml"
-      owner: vagrant
-      group: vagrant
 
   - name: Ensure wildfly configuration directory exists
     file:
@@ -46,3 +53,10 @@
       owner: vagrant
       group: vagrant
     ignore_errors: true
+
+# Make sure mysql connector is installed int wildfly
+  - name: Copy mysql connector to wildfly installed
+    synchronize:
+      src: "{{ispyb_home}}/configuration/mysql/"
+      dest: "{{wildfly_home}}/modules/system/layers/base/com/mysql/"
+    delegate_to: "{{ inventory_hostname }}"

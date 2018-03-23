@@ -8,10 +8,15 @@
 - name: Install unzip Package
   package: name=unzip state=latest
 
-- name: Download Wildfly 10
-  get_url:
-      url: "{{wildfly_url}}"
-      dest: /opt/{{wildfly_package}}
+# - name: Download Wildfly 10
+#   get_url:
+#       url: "{{wildfly_url}}"
+#       dest: /opt/{{wildfly_package}}
+
+- name: Copy Wildfly 10 to host
+  copy:
+    src: files/{{wildfly_package}}
+    dest: /opt/
 
 - name: Install Wildfly from archive
   unarchive:
