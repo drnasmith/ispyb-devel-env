@@ -11,7 +11,7 @@
         group: vagrant
         recurse: yes
 
-  - name: Ensure wildfly meven local repo directory exists
+  - name: Ensure wildfly maven local repo directory exists
     file:
       path: "{{ maven_local_repo }}"
       state: directory
@@ -39,7 +39,7 @@
       mode: 0755
 
   - name: Install wildfly authentication files
-    file:
+    copy:
       src: files/users.properties
       dest: "{{ wildfly_home }}/standalone/configuration/props/"
       owner: vagrant
@@ -47,7 +47,7 @@
     ignore_errors: true
 
   - name: Install wildfly authentication files
-    file:
+    copy:
       src: files/roles.properties
       dest: "{{ wildfly_home }}/standalone/configuration/props/"
       owner: vagrant
