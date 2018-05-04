@@ -38,7 +38,7 @@
       state: directory
       mode: 0755
 
-  - name: Install wildfly authentication files
+  - name: Install wildfly authentication files (users)
     copy:
       src: files/users.properties
       dest: "{{ wildfly_home }}/standalone/configuration/props/"
@@ -46,7 +46,7 @@
       group: vagrant
     ignore_errors: true
 
-  - name: Install wildfly authentication files
+  - name: Install wildfly authentication files (roles)
     copy:
       src: files/roles.properties
       dest: "{{ wildfly_home }}/standalone/configuration/props/"
