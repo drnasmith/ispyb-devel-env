@@ -1,0 +1,5 @@
+---
+- name: Setup user(s)
+  user:
+    name: "{{ispyb_web_user}}"
+    comment: ISPyB Web User

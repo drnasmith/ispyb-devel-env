@@ -1,2 +1,6 @@
 mysql_root_password: integration
-ispyb_password: ispyb
+ispyb_db_password: ispyb
+ispyb_db_user: pxadmin
+
+# Only used to add mariadb to repository in centos
+mariadb_version: '10.3.7'

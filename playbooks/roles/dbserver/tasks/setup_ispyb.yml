@@ -1,0 +1,30 @@
+  - name: Create ISPyB database tables
+    mysql_db:
+      name: ispyb
+      state: present
+
+  - name: Setup ISPyB admin users
+    mysql_user:
+      name: "{{ispyb_db_user}}"
+      password: "{{ ispyb_db_password }}"
+      state: present
+      host: '%'
+      priv: '*.*:ALL'
+
+  - name: Reload Privilege Tables
+    command: 'mysql -ne "{{ item }}"'
+    with_items:
+      - FLUSH PRIVILEGES
+    changed_when: False
+
+  - name: Copy the sql schema script across
+    copy: src=files/ispyb-api-schema.sql dest=/tmp
+
+  - name: Import ispyb schema file(s)
+    mysql_db:
+      state: import
+      name: ispyb
+      target: "{{ item }}"
+    with_items:
+      - /tmp/ispyb-api-schema.sql
+    ignore_errors: True

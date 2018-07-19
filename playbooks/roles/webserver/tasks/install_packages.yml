@@ -22,16 +22,16 @@
   unarchive:
       src: /opt/{{wildfly_package}}
       dest: /opt
-      owner: vagrant
-      group: vagrant
+      owner: "{{ispyb_web_user}}"
+      group: "{{ispyb_web_user}}"
       copy: no
 
 - name: Install Wildfly configuration
   template:
     src: files/standalone.xml.j2
     dest: "{{ wildfly_home }}/standalone/configuration/standalone.xml"
-    owner: vagrant
-    group: vagrant
+    owner: "{{ispyb_web_user}}"
+    group: "{{ispyb_web_user}}"
 
 - name: Install OpenJDK Package
   package: name=java-1.8.0-openjdk-devel state=latest

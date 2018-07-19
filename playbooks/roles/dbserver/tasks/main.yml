@@ -8,4 +8,4 @@
   when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
 
 - include_tasks: setup_mysql.yml
-- include_tasks: setup_ispyb.yml
+- include_tasks: setup_pydb.yml

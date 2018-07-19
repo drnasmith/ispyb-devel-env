@@ -4,30 +4,30 @@
         dest: "{{ ispyb_home }}"
     ignore_errors: yes
 
-  - name: Change ownership to vagrant
+  - name: Change ownership to {{ispyb_web_user}}
     file:
         path: "{{ ispyb_home }}"
-        owner: vagrant
-        group: vagrant
+        owner: "{{ispyb_web_user}}"
+        group: "{{ispyb_web_user}}"
         recurse: yes
 
   - name: Ensure wildfly maven local repo directory exists
     file:
       path: "{{ maven_local_repo }}"
       state: directory
-      owner: vagrant
-      group: vagrant
+      owner: "{{ispyb_web_user}}"
+      group: "{{ispyb_web_user}}"
 
   - name: Install maven settings for ispyb build
     template:
       src: files/settings.xml.j2
       dest: "{{ maven_local_repo }}/settings.xml"
-      owner: vagrant
-      group: vagrant
+      owner: "{{ispyb_web_user}}"
+      group: "{{ispyb_web_user}}"
 
 # Latest version includes a method to initialize dependencies from maven
   - name: Install ISPyB local dependencies
-    become_user: vagrant
+    become_user: "{{ispyb_web_user}}"
     shell: |
         cd {{ ispyb_home }}/dependencies
         mvn initialize
@@ -42,16 +42,16 @@
     copy:
       src: files/users.properties
       dest: "{{ wildfly_home }}/standalone/configuration/props/"
-      owner: vagrant
-      group: vagrant
+      owner: "{{ispyb_web_user}}"
+      group: "{{ispyb_web_user}}"
     ignore_errors: true
 
   - name: Install wildfly authentication files (roles)
     copy:
       src: files/roles.properties
       dest: "{{ wildfly_home }}/standalone/configuration/props/"
-      owner: vagrant
-      group: vagrant
+      owner: "{{ispyb_web_user}}"
+      group: "{{ispyb_web_user}}"
     ignore_errors: true
 
 # Make sure mysql connector is installed int wildfly
