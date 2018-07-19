@@ -4,24 +4,11 @@
       name: "{{ item }}"
       state: present
     with_items:
-      -  ispyb_config
-      -  ispyb_db
       -  pydb
       -  pyconfig
 
-  - name: Setup ISPyB users
-    mysql_user:
-      name: "{{ item }}"
-      password: "{{ ispyb_db_password }}"
-      state: present
-      host: localhost
-      priv: '*.*:ALL'
-    with_items:
-      - ispyb_config
-      - ispyb_db
-      - pxuser
-
-  - name: Setup ISPyB admin users
+# Note: for production use, multiple users with privileges would be required
+  - name: Setup ISPyB admin user
     mysql_user:
       name: "{{ item }}"
       password: "{{ ispyb_db_password }}"
@@ -30,8 +17,6 @@
       priv: '*.*:ALL'
     with_items:
       - "{{ispyb_db_user}}"
-
-
 
   - name: Reload Privilege Tables
     command: 'mysql -ne "{{ item }}"'

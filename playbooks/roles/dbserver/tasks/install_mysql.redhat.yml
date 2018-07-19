@@ -1,0 +1,12 @@
+# Provision file for the MariaDB Server package
+  - name: Install MySQL Python for remote configuration
+    yum: name=MySQL-python state=present
+
+  - name: Install MariaDB Server
+    yum: name=MariaDB-server state=present
+
+  - name: Install MariaDB Client
+    yum: name=MariaDB-client state=present
+
+  - name: Start the MariaDB service
+    service: name=mariadb state=started enabled=yes

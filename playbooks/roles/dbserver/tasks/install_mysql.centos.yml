@@ -5,7 +5,7 @@
     yum_repository:
       name: mariadb
       description: MariaDB
-      baseurl: http://mirrors.coreix.net/mariadb/mariadb-10.2.13/yum/centos7-amd64/
+      baseurl: http://mirrors.coreix.net/mariadb/mariadb-{{mariadb_version}}/yum/centos7-amd64/
       gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
       gpgcheck: yes
 
