@@ -1,4 +1,3 @@
----
 # Install MySQL (MariaDB) packages
   - name: Add MariaDB repository
     package: name=mariadb-server state=present
