@@ -17,8 +17,11 @@
       - FLUSH PRIVILEGES
     changed_when: False
 
-  - name: Copy the sql schema script across
-    copy: src=files/ispyb-api-schema.sql dest=/tmp
+  - name: Checkout ispyb-database schema
+    git:
+      repo: https://github.com/DiamondLightSource/ispyb-database
+      dest: /opt/ispyb-database
+    ignore_errors: True
 
   - name: Import ispyb schema file(s)
     mysql_db:
@@ -26,5 +29,6 @@
       name: ispyb
       target: "{{ item }}"
     with_items:
-      - /tmp/ispyb-api-schema.sql
+      - /opt/ispyb-database/schema/tables.sql
+      - /opt/ispyb-database/schema/routines.sql
     ignore_errors: True

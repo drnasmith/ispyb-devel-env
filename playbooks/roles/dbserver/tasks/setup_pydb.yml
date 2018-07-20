@@ -38,19 +38,19 @@
       - pydb
     ignore_errors: True
 
-# As we are running from the trunk - run the ahead scripts as well
-  - name: Find remote sql update files copied
-    find:
-      paths: "{{ispyb_home}}/ispyb-ejb/db/scripts/ahead"
-      patterns: "*.sql"
-      recurse: "yes"
-    register: sql_files
+# We could run the ahead scripts here if requied...
+  # - name: Find remote sql update files copied
+  #   find:
+  #     paths: "{{ispyb_home}}/ispyb-ejb/db/scripts/ahead"
+  #     patterns: "*.sql"
+  #     recurse: "yes"
+  #   register: sql_files
 
-  - name: Import ispyb database updates
-    mysql_db:
-      state: import
-      name: pydb
-      target: "{{ item.path }}"
-    with_items:
-      - "{{ sql_files.files }}"
-    ignore_errors: True
+  # - name: Import ispyb database updates
+  #   mysql_db:
+  #     state: import
+  #     name: pydb
+  #     target: "{{ item.path }}"
+  #   with_items:
+  #     - "{{ sql_files.files }}"
+  #   ignore_errors: True

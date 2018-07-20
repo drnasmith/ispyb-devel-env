@@ -1,3 +1,4 @@
+#Install packages for MySQL
 - include_tasks: install_mysql.centos.yml
   when: ansible_distribution == "CentOS"
 
@@ -7,5 +8,9 @@
 - include_tasks: install_mysql.debian.yml
   when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
 
+# Secure installation for mysql
 - include_tasks: setup_mysql.yml
+
+# Import the database schemas (ESRF: pydb, DLS: ispyb)
 - include_tasks: setup_pydb.yml
+- include_tasks: setup_ispyb.yml
