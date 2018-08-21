@@ -8,15 +8,14 @@
       -  pyconfig
 
 # Note: for production use, multiple users with privileges would be required
+# This setup is just for development only!
   - name: Setup ISPyB admin user
     mysql_user:
-      name: "{{ item }}"
+      name: "{{ispyb_db_user}}"
       password: "{{ ispyb_db_password }}"
       state: present
       host: '%'
       priv: '*.*:ALL'
-    with_items:
-      - "{{ispyb_db_user}}"
 
   - name: Reload Privilege Tables
     command: 'mysql -ne "{{ item }}"'
@@ -26,7 +25,6 @@
 
 #
 # Import database schema
-#
 #
   - name: Import ispyb schema
     mysql_db:
@@ -38,7 +36,10 @@
       - pydb
     ignore_errors: True
 
+#
 # We could run the ahead scripts here if requied...
+# If this is commented out it only imports the sql that has been agreed to be included in the pydb schema
+#
   # - name: Find remote sql update files copied
   #   find:
   #     paths: "{{ispyb_home}}/ispyb-ejb/db/scripts/ahead"

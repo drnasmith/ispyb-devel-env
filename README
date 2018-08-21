@@ -17,4 +17,8 @@ If all goes well the depdendencies will be created for the vagrant user. If not 
 To build go to /opt/ispyb and run 'mvn package'. This builds the web services, database layer and the ui all bundled into an ear.
 
 ## Deploy to Wildfly
-TODO: Document correct Auto-deploy steps here...
+cp /opt/ispyb/ispyb-ear/target/ispyb.ear /opt/wildfly-10.1.0.Final/standalone/deployments
+
+Then run the wildfly server (the bind makes sure it runs on the external ip address):
+cd /opt/wildfly-10.1.0/
+./bin/standalone.sh -Djboss.bind.address=192.168.30.11

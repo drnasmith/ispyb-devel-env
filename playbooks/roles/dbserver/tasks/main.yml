@@ -13,4 +13,4 @@
 
 # Import the database schemas (ESRF: pydb, DLS: ispyb)
 - include_tasks: setup_pydb.yml
-- include_tasks: setup_ispyb.yml
+#- include_tasks: setup_ispyb.yml
