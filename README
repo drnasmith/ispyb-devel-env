@@ -14,6 +14,11 @@ Once deployed you will need to login to the VM (vagrant ssh) and build the softw
 
 If all goes well the depdendencies will be created for the vagrant user. If not go to /opt/ispyb/dependencies and run 'mvn initialize'.
 
+Suggest initially using the ESRF profile (the active profile is defined in ~/.m2/settings.xml). 
+In ispyb-ejb/pom.xml, change the authentication type to SIMPLE to get started (this uses the roles and users properties files).
+There are two users defined 'guest' and 'boaty'.
+You can add your own profile but it will need code changes to work properly. 
+
 To build go to /opt/ispyb and run 'mvn package'. This builds the web services, database layer and the ui all bundled into an ear.
 
 ## Deploy to Wildfly
@@ -22,3 +27,7 @@ cp /opt/ispyb/ispyb-ear/target/ispyb.ear /opt/wildfly-10.1.0.Final/standalone/de
 Then run the wildfly server (the bind makes sure it runs on the external ip address):
 cd /opt/wildfly-10.1.0/
 ./bin/standalone.sh -Djboss.bind.address=192.168.30.11
+
+On your host access ISPyB UI through http://192.168.30.11:8080
+
+you should be able to login however until there is test data in the database your access will be limited.
